@@ -1,6 +1,6 @@
 using System;
 
-namespace MazeMapper.Web.Application
+namespace MazeMapper.Core
 {
     public class WeatherForecast
     {
