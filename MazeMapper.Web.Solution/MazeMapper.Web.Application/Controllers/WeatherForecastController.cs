@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 namespace MazeMapper.Web.Application.Controllers
 {
     [ApiController]
+    //  [controller] is the short key for the name of the controller: WeatherForecast without the ending "Controller".
+    // this can be named to anything because the Route attribute will make sure this API is available in this address.
+    // in order to connect to this API just go to the right route: //[web]/[controller]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
