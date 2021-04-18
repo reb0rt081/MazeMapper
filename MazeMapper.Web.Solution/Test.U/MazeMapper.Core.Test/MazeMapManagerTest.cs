@@ -18,6 +18,19 @@ namespace TestU.MazeMapper.Core.Test
         /// <summary>
         /// Input maze:
         /// 000000
+        /// *1111
+        /// 000000
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void BuildWrongMaze()
+        {
+            mazeMapManager.BuildMazeMapFromString($"000000{Environment.NewLine}*1111{Environment.NewLine}000000");
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 000000
         /// *11110
         /// 000000
         /// </summary>
