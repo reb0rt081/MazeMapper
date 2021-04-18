@@ -17,7 +17,7 @@ namespace MazeMapper.Core
 
         public void BuildMazeMapFromString(string mazeMapText)
         {
-            throw new NotImplementedException();
+            string[] mazeColumns = mazeMapText.Split(Environment.NewLine);
         }
     }
 }
