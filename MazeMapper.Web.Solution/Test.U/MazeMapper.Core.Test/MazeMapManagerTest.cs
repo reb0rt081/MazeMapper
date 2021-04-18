@@ -37,7 +37,42 @@ namespace TestU.MazeMapper.Core.Test
         [TestMethod]
         public void BuildSimpleMaze()
         {
-            mazeMapManager.BuildMazeMapFromString($"000000{Environment.NewLine}*11110{Environment.NewLine}000000");
+            string mazeMapString = $"000000{Environment.NewLine}*11110{Environment.NewLine}000000";
+
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            Assert.AreEqual(5, mazeMapManager.MazeMap.Nodes.Count);
+            Assert.AreEqual(8, mazeMapManager.MazeMap.Arrows.Count);
+            Assert.AreEqual(3, mazeMapManager.MazeMap.MazeMatrix.Length);
+            Assert.AreEqual(6, mazeMapManager.MazeMap.MazeMatrix[0].Length);
+
+            Assert.IsTrue(mazeMapManager.MazeMap.ToString().Contains(mazeMapString));
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 11111111
+        /// 10101001
+        /// 00100011
+        /// 11111110
+        /// 10010011
+        /// 11110001
+        /// 01010111
+        /// *1011101
+        /// </summary>
+        [TestMethod]
+        public void BuildComplexMaze()
+        {
+            string mazeMapString = $"11111111{Environment.NewLine}10101001{Environment.NewLine}00100011{Environment.NewLine}11111110{Environment.NewLine}10010011{Environment.NewLine}11110001{Environment.NewLine}01010111{Environment.NewLine}*1011101";
+            
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            Assert.AreEqual(42, mazeMapManager.MazeMap.Nodes.Count);
+            Assert.AreEqual(88, mazeMapManager.MazeMap.Arrows.Count);
+            Assert.AreEqual(8, mazeMapManager.MazeMap.MazeMatrix.Length);
+            Assert.AreEqual(8, mazeMapManager.MazeMap.MazeMatrix[0].Length);
+            
         }
     }
 }

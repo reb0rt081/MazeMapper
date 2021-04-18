@@ -4,17 +4,19 @@ using System.Text;
 
 namespace MazeMapper.Shared
 {
-    /// <summary>
-    /// Represents a node that can be walked.
-    /// </summary>
-    public class PathNode : INode
+    public class SourceNode : PathNode
     {
         public string Id { get; set; }
         public int Cost { get; set; }
 
+        public SourceNode()
+        {
+            Cost = 0;
+        }
+
         public override string ToString()
         {
-            return Cost == 0 ? "1" : Cost.ToString();
+            return "*";
         }
     }
 }

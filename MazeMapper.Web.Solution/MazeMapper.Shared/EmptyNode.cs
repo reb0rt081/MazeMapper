@@ -9,5 +9,10 @@ namespace MazeMapper.Shared
     {
         public string Id { get; set; }
         public int Cost { get; set; }
+
+        public override string ToString()
+        {
+            return "0";
+        }
     }
 }
