@@ -7,6 +7,8 @@ namespace MazeMapper.Domain
 {
     public interface IMazeMapManager
     {
-        IMazeMap MazeMap { get; set; }
+        IMazeMap MazeMap { get; }
+
+        void BuildMazeMapFromString(string mazeMapText);
     }
 }
