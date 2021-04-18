@@ -72,7 +72,8 @@ namespace TestU.MazeMapper.Core.Test
             Assert.AreEqual(88, mazeMapManager.MazeMap.Arrows.Count);
             Assert.AreEqual(8, mazeMapManager.MazeMap.MazeMatrix.Length);
             Assert.AreEqual(8, mazeMapManager.MazeMap.MazeMatrix[0].Length);
-            
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
         }
     }
 }
