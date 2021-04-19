@@ -118,5 +118,24 @@ namespace TestU.MazeMapper.Core.Test
 
             Console.WriteLine(mazeMapManager.MazeMap.ToString());
         }
+
+        /// <summary>
+        /// Input maze:
+        /// 11110001
+        /// 01010111
+        /// *1011101
+        /// </summary>
+        [TestMethod]
+        [Timeout(30000)]
+        public async Task BuildAndSolveIntermediateMaze()
+        {
+            string mazeMapString = $"11110001{Environment.NewLine}01010111{Environment.NewLine}*1011101";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            await mazeMapManager.SolveMazeAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+        }
     }
 }

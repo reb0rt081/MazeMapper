@@ -114,11 +114,19 @@ namespace MazeMapper.Core
 
         private async Task MakeRoverExploreAsync(IRover rover)
         {
-            bool shouldRoverExplore = true;
-
             await Task.Run(() => 
             {
-                while (MazeMap.Nodes.OfType<PathNode>().Count(pn => pn.Cost == 0) > 1 && shouldRoverExplore)
+                bool shouldRoverExplore = true;
+
+                if (rover.ReservedNode != null)
+                {
+                    lock (lockObject)
+                    {
+                        shouldRoverExplore = rover.TryGoToNextNode();
+                    }
+                }
+
+                while (MazeMap.Nodes.OfType<PathNode>().Count(pn => pn.Cost == 0) > 1 || shouldRoverExplore)
                 {
                     List<INode> nextNodes = GetAdjacentNodes(rover.CurrentNode).Where(n => n.Id != rover.PreviousNode?.Id).ToList();
 
@@ -126,7 +134,8 @@ namespace MazeMapper.Core
                     {
                         lock (lockObject)
                         {
-                            shouldRoverExplore = rover.TryGoToNextNode(nextNodes.First());
+                            rover.ReserveNextNode(nextNodes.First());
+                            shouldRoverExplore = rover.TryGoToNextNode();
                         }
                     }
                     else
@@ -141,12 +150,22 @@ namespace MazeMapper.Core
                             if (numberOfruns < nextNodes.Count)
                             {
                                 IRover newRover = new Rover { Name = rover.Name + "|" + numberOfruns };
-                                newRover.BookRoverToLocation(currentNode);
+
+                                lock (lockObject)
+                                {
+                                    newRover.BookRoverToLocation(currentNode);
+                                    newRover.ReserveNextNode(nextNode);
+                                }
+
                                 MakeRoverExploreAsync(newRover);
                             }
                             else
                             {
-                                shouldRoverExplore = rover.TryGoToNextNode(nextNode);
+                                lock (lockObject)
+                                {
+                                    rover.ReserveNextNode(nextNode);
+                                    shouldRoverExplore = rover.TryGoToNextNode();
+                                }
                             }
                         }
                     }

@@ -10,6 +10,7 @@ namespace MazeMapper.Core
         public string Name { get; set; }
         public INode PreviousNode { get; private set; }
         public INode CurrentNode { get; private set; }
+        public INode ReservedNode { get; private set; }
 
         public void BookRoverToLocation(INode node)
         {
@@ -19,19 +20,27 @@ namespace MazeMapper.Core
             }
         }
 
-        public bool TryGoToNextNode(INode nextNode)
+        public void ReserveNextNode(INode node)
         {
-            Console.WriteLine($"Rover {Name} trying to go from {CurrentNode.Id} to {nextNode.Id}");
-
-            if(CurrentNode != null && nextNode != null)
+            if (node != null)
             {
-                if(CurrentNode.Cost + 1 < nextNode.Cost || nextNode.Cost == 0)
+                ReservedNode = node;
+            }
+        }
+
+        public bool TryGoToNextNode()
+        {
+            Console.WriteLine($"Rover {Name} trying to go from {CurrentNode.Id} to {ReservedNode.Id}");
+
+            if(CurrentNode != null && ReservedNode != null)
+            {
+                if(CurrentNode.Cost + 1 < ReservedNode.Cost || ReservedNode.Cost == 0)
                 {
-                    Console.WriteLine($"Rover {Name} finally going from {CurrentNode.Id} to {nextNode.Id}");
+                    Console.WriteLine($"Rover {Name} finally going from {CurrentNode.Id} to {ReservedNode.Id}");
 
                     PreviousNode = CurrentNode;
-                    nextNode.Cost = CurrentNode.Cost + 1;
-                    CurrentNode = nextNode;
+                    ReservedNode.Cost = CurrentNode.Cost + 1;
+                    CurrentNode = ReservedNode;
                     
                     return true;
                 }

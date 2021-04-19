@@ -12,8 +12,12 @@ namespace MazeMapper.Shared
 
         INode CurrentNode { get; }
 
+        INode ReservedNode { get; }
+
         void BookRoverToLocation(INode node);
 
-        bool TryGoToNextNode(INode nextNode);
+        void ReserveNextNode(INode node);
+
+        bool TryGoToNextNode();
     }
 }
