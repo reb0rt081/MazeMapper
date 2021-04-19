@@ -17,6 +17,8 @@ namespace MazeMapper.Core
 
         public IMazeMap MazeMap { get; private set; }
 
+        private readonly List<Task> roverTasks = new List<Task>();
+
         public MazeMapManager()
         {
             MazeMap = new MazeMap();
@@ -98,7 +100,11 @@ namespace MazeMapper.Core
             Rover rover = new Rover { Name = "OriginalRover" };
             rover.BookRoverToLocation(mazeStartLine);
 
-            await MakeRoverExploreAsync(rover);
+            roverTasks.Add(MakeRoverExploreAsync(rover));
+
+            await Task.WhenAll(roverTasks);
+
+            roverTasks.RemoveAll(t => t != null);
         }
 
         public List<INode> GetAdjacentNodes(INode node)
@@ -126,7 +132,7 @@ namespace MazeMapper.Core
                     }
                 }
 
-                while (MazeMap.Nodes.OfType<PathNode>().Count(pn => pn.Cost == 0) > 1 || shouldRoverExplore)
+                while (shouldRoverExplore)
                 {
                     List<INode> nextNodes = GetAdjacentNodes(rover.CurrentNode).Where(n => n.Id != rover.PreviousNode?.Id).ToList();
 
@@ -157,7 +163,7 @@ namespace MazeMapper.Core
                                     newRover.ReserveNextNode(nextNode);
                                 }
 
-                                MakeRoverExploreAsync(newRover);
+                                roverTasks.Add(MakeRoverExploreAsync(newRover));
                             }
                             else
                             {
