@@ -22,12 +22,18 @@ namespace MazeMapper.Web.Application.Controllers
         public MazeMapperController(IMazeMapManager _mazeMapManager)
         {
             mazeMapManager = _mazeMapManager;
+
+            string mazeMapString = $"11111111{Environment.NewLine}10101001{Environment.NewLine}00100011{Environment.NewLine}11111110{Environment.NewLine}10010011{Environment.NewLine}11110001{Environment.NewLine}01010111{Environment.NewLine}*1011101";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
         }
 
         [HttpGet]
         public string Get()
         {
-            return "rbo";
+            mazeMapManager.SolveMazeAsync().Wait();
+
+            return mazeMapManager.MazeMap.ToString();
         }
     }
 }
