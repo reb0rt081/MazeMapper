@@ -18,8 +18,6 @@ namespace MazeMapper.Core
 
         public IMazeMap MazeMap { get; private set; }
 
-        private ConcurrentDictionary<string, Task> roverTasks;
-
         public MazeMapManager()
         {
             MazeMap = new MazeMap();
@@ -96,16 +94,12 @@ namespace MazeMapper.Core
 
         public async Task SolveMazeAsync()
         {
-            roverTasks = new ConcurrentDictionary<string, Task>();
-
             INode mazeStartLine = MazeMap.Nodes.Single(n => n is SourceNode);
 
             Rover rover = new Rover { Name = "OriginalRover" };
             rover.BookRoverToLocation(mazeStartLine);
 
             await MakeRoverExploreAsync(rover);
-
-            await Task.WhenAll(roverTasks.Values.ToList());
         }
 
         public List<INode> GetAdjacentNodes(INode node)
@@ -121,6 +115,8 @@ namespace MazeMapper.Core
 
         private async Task MakeRoverExploreAsync(IRover rover)
         {
+            ConcurrentDictionary<string, Task> roverTasks = new ConcurrentDictionary<string, Task>();
+
             await Task.Run(() => 
             {
                 bool shouldRoverExplore = true;
@@ -182,6 +178,8 @@ namespace MazeMapper.Core
                     }
                 }
             });
+
+            await Task.WhenAll(roverTasks.Values.ToList());
         }
     }
 }
