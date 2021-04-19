@@ -22,26 +22,30 @@ namespace MazeMapper.Core
 
         public void BuildMazeMapFromString(string mazeMapText)
         {
-            string[] mazeColumns = mazeMapText.Split(Environment.NewLine);
+            string[] mazeRows = mazeMapText.Split(Environment.NewLine);
 
-            if (mazeColumns.Select(m => m.Length).Distinct().Count() > 1)
+            if (mazeRows.Select(m => m.Length).Distinct().Count() > 1)
             {
                 throw new Exception("Maze map input string must have the same number of chars per line!");
             }
 
-            MazeMap.MazeMatrix = new INode[mazeColumns.Count()][];
+            // Setting maze matrix number of rows
+            MazeMap.MazeMatrix = new INode[mazeRows.Count()][];
 
 
-            for (int i = 0; i < mazeColumns.Count(); i++)
+            for (int i = 0; i < mazeRows.Count(); i++)
             {
-                string mazeCell = mazeColumns[i];
+                string mazeCell = mazeRows[i];
 
+                // Setting maze matrix number of columns
                 MazeMap.MazeMatrix[i] = new INode[mazeCell.Length];
 
                 for (int j = 0; j < mazeCell.Length; j++)
                 {
+                    //  Transforming input char into appropiate node and adding it to the List of connected nodes if meaningful
                     switch(mazeCell.ElementAt(j))
                     {
+                        //  Empty nodes are not used to calculate paths
                         case '0': 
                             MazeMap.MazeMatrix[i][j] = new EmptyNode { Id = $"EmptyNode[{i}][{j}]" };                            
                             break;
@@ -59,6 +63,7 @@ namespace MazeMapper.Core
                 }                    
             }
 
+            //  Finding out all possible arrows across valid path cells in four possible directions: up, left, down, right
             for (int i = 0; i < MazeMap.MazeMatrix.Count(); i++)
             {                
                 for (int j = 0; j < MazeMap.MazeMatrix[i].Length; j++)
@@ -93,9 +98,13 @@ namespace MazeMapper.Core
         {
             INode mazeStartLine = MazeMap.Nodes.Single(n => n is SourceNode);
 
+            //  Initialize original rover and start exploring the maze
             Rover rover = new Rover { Name = "OriginalRover" };
+
+            //  Book the rover to the source node (the start line)
             rover.BookRoverToLocation(mazeStartLine);
 
+            //  Start exploring
             await MakeRoverExploreAsync(rover);
         }
 
@@ -114,10 +123,12 @@ namespace MazeMapper.Core
         {
             ConcurrentDictionary<string, Task> roverTasks = new ConcurrentDictionary<string, Task>();
 
+            //  Start async task to explore the maze
             await Task.Run(() => 
             {
                 bool shouldRoverExplore = true;
 
+                //  If an address is already reserved go there
                 if (rover.ReservedNode != null)
                 {
                     lock (lockObject)
@@ -126,10 +137,13 @@ namespace MazeMapper.Core
                     }
                 }
 
+                //  If we have more nodes to explore the rover needs to continue moving
                 while (shouldRoverExplore)
                 {
+                    //  Get adjacent nodes to the current node where the rover is
                     List<INode> nextNodes = GetAdjacentNodes(rover.CurrentNode).Where(n => n.Id != rover.PreviousNode?.Id).ToList();
 
+                    //  If only one node to visit send the rover there and reserve the node
                     if (nextNodes.Count == 1)
                     {
                         lock (lockObject)
@@ -138,6 +152,7 @@ namespace MazeMapper.Core
                             shouldRoverExplore = rover.TryGoToNextNode();
                         }
                     }
+                    //  When more than one potential node to visit we need to send more rovers to explore
                     else if(nextNodes.Count > 1)
                     {
                         int numberOfruns = 0;
@@ -147,6 +162,7 @@ namespace MazeMapper.Core
                             numberOfruns++;
                             INode currentNode = rover.CurrentNode;
 
+                            //  The first potential next nodes will be visited by new rovers
                             if (numberOfruns < nextNodes.Count)
                             {
                                 IRover newRover = new Rover { Name = rover.Name + "|" + numberOfruns };
@@ -157,8 +173,10 @@ namespace MazeMapper.Core
                                     newRover.ReserveNextNode(nextNode);
                                 }
 
+                                //  Make the new rover start exploring from the current node towards the next node
                                 roverTasks.TryAdd(newRover.Name, MakeRoverExploreAsync(newRover));
                             }
+                            //  The original rover continues travelling for the last node to visit
                             else
                             {
                                 lock (lockObject)
@@ -169,6 +187,7 @@ namespace MazeMapper.Core
                             }
                         }
                     }
+                    //  No more nodes to visit, end of the maze
                     else
                     {
                         shouldRoverExplore = false;
@@ -176,6 +195,7 @@ namespace MazeMapper.Core
                 }
             });
 
+            //  Wait for all child rovers to explore the maze
             await Task.WhenAll(roverTasks.Values.ToList());
         }
     }
