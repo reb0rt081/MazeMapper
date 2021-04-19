@@ -10,8 +10,9 @@ import './custom.css'
 export default class App extends Component {
   static displayName = App.name;
 
+  // exact path = '/' sets the page to be displayed as default in the Layout container when using this.props.children
   render () {
-    return (
+      return (
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
