@@ -138,7 +138,7 @@ namespace MazeMapper.Core
                             shouldRoverExplore = rover.TryGoToNextNode();
                         }
                     }
-                    else
+                    else if(nextNodes.Count > 1)
                     {
                         int numberOfruns = 0;
 
@@ -168,6 +168,10 @@ namespace MazeMapper.Core
                                 }
                             }
                         }
+                    }
+                    else
+                    {
+                        shouldRoverExplore = false;
                     }
                 }
             });
