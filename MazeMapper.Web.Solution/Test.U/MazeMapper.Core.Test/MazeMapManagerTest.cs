@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using MazeMapper.Core;
@@ -48,8 +49,6 @@ namespace TestU.MazeMapper.Core.Test
             Assert.AreEqual(8, mazeMapManager.MazeMap.Arrows.Count);
             Assert.AreEqual(3, mazeMapManager.MazeMap.MazeMatrix.Length);
             Assert.AreEqual(6, mazeMapManager.MazeMap.MazeMatrix[0].Length);
-
-            //Assert.IsTrue(mazeMapManager.MazeMap.ToString().Contains(mazeMapString));
         }
 
         /// <summary>
@@ -63,10 +62,14 @@ namespace TestU.MazeMapper.Core.Test
         {
             string mazeMapString = $"000000{Environment.NewLine}*11110{Environment.NewLine}000000";
 
-
             mazeMapManager.BuildMazeMapFromString(mazeMapString);
 
             await mazeMapManager.SolveMazeAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 4));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 5);
         }
 
         /// <summary>
@@ -117,6 +120,9 @@ namespace TestU.MazeMapper.Core.Test
             await mazeMapManager.SolveMazeAsync();
 
             Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 15));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 16);
         }
 
         /// <summary>
@@ -136,6 +142,9 @@ namespace TestU.MazeMapper.Core.Test
             await mazeMapManager.SolveMazeAsync();
 
             Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 13));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 14);
         }
 
         /// <summary>
@@ -147,19 +156,76 @@ namespace TestU.MazeMapper.Core.Test
         /// 1001001101
         /// 1111000111
         /// 0101011101
-        /// *101110101
+        /// *101110111
         /// </summary>
         [TestMethod]
         [Timeout(30000)]
         public async Task BuildAndSolveMoreComplexMaze()
         {
-            string mazeMapString = $"1111111111{Environment.NewLine}1010100100{Environment.NewLine}0010001101{Environment.NewLine}1111111001{Environment.NewLine}1001001101{Environment.NewLine}1111000111{Environment.NewLine}0101011101{Environment.NewLine}*101110101";
+            string mazeMapString = $"1111111111{Environment.NewLine}1010100100{Environment.NewLine}0010001101{Environment.NewLine}1111111001{Environment.NewLine}1001001101{Environment.NewLine}1111000111{Environment.NewLine}0101011101{Environment.NewLine}*101110111";
 
             mazeMapManager.BuildMazeMapFromString(mazeMapString);
 
             await mazeMapManager.SolveMazeAsync();
 
             Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 18));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 19);
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 1111111111
+        /// 1010100100
+        /// 0010001101
+        /// 1111111001
+        /// 1001111101
+        /// 1111110111
+        /// 0101011101
+        /// *101110111
+        /// </summary>
+        [TestMethod]
+        [Timeout(30000)]
+        public async Task BuildAndSolveHellMaze()
+        {
+            string mazeMapString = $"1111111111{Environment.NewLine}1010100100{Environment.NewLine}0010001101{Environment.NewLine}1111111001{Environment.NewLine}1001111101{Environment.NewLine}1111110111{Environment.NewLine}0101011101{Environment.NewLine}*101110111";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            await mazeMapManager.SolveMazeAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 16));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 17);
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 1111111111
+        /// 1010100100
+        /// 0010001101
+        /// 1111111001
+        /// 1001111101
+        /// 1111110111
+        /// 0111111101
+        /// 0001*11101
+        /// </summary>
+        [TestMethod]
+        [Timeout(30000)]
+        public async Task BuildAndSolveHellMaze2()
+        {
+            string mazeMapString = $"1111111111{Environment.NewLine}1010100100{Environment.NewLine}0010001101{Environment.NewLine}1111111001{Environment.NewLine}1001111101{Environment.NewLine}1111110111{Environment.NewLine}0111111101{Environment.NewLine}0001*11101";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            await mazeMapManager.SolveMazeAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 12));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 13);
         }
     }
 }
