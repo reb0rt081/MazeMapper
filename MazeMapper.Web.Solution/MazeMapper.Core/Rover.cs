@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using MazeMapper.Domain;
+
 namespace MazeMapper.Core
 {
     public class Rover : IRover

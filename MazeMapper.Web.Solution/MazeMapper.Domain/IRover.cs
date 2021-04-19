@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MazeMapper.Shared
+using MazeMapper.Shared;
+
+namespace MazeMapper.Domain
 {
     public interface IRover
     {
