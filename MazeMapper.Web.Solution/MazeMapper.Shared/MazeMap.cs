@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MazeMapper.Shared
@@ -18,13 +19,23 @@ namespace MazeMapper.Shared
 
         public override string ToString()
         {
+            int maxLength = Nodes.Select(n => n.Cost).Max() > 9 ? 2 : 1;
+
             string result = "Result:" + Environment.NewLine;
 
             for (int i = 0; i < MazeMatrix.Length; i++)
             {
                 for (int j = 0; j < MazeMatrix[i].Length; j++)
                 {
-                    result += MazeMatrix[i][j];
+                    if(maxLength == 2 && MazeMatrix[i][j].Cost <= 9)
+                    {
+                        result += "|0" + MazeMatrix[i][j] + "|";
+                    }
+                    else
+                    {
+                        result += "|" + MazeMatrix[i][j] + "|";
+                    }
+                    
                 }
 
                 result += Environment.NewLine;

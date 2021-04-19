@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 using MazeMapper.Domain;
 using MazeMapper.Shared;
+
+using Microsoft.VisualBasic;
 
 namespace MazeMapper.Core
 {
     public class MazeMapManager : IMazeMapManager
     {
+        private static readonly object lockObject = new object();
+
         public IMazeMap MazeMap { get; private set; }
 
         public MazeMapManager()
@@ -83,6 +89,69 @@ namespace MazeMapper.Core
                     }
                 }
             }
-        }        
+        }
+
+        public async Task SolveMazeAsync()
+        {
+            INode mazeStartLine = MazeMap.Nodes.Single(n => n is SourceNode);
+
+            Rover rover = new Rover { Name = "OriginalRover" };
+            rover.BookRoverToLocation(mazeStartLine);
+
+            await MakeRoverExploreAsync(rover);
+        }
+
+        public List<INode> GetAdjacentNodes(INode node)
+        {
+            List<INode> adjacentNodes = new List<INode>();
+
+            List<IArrow> connectedArrows = MazeMap.Arrows.Where(a => a.Vertex1 == node || a.Vertex2 == node).ToList();
+
+            connectedArrows.ForEach(a => adjacentNodes.Add(a.GetOppositeNode(node)));
+
+            return adjacentNodes.Distinct().ToList();
+        }
+
+        private async Task MakeRoverExploreAsync(IRover rover)
+        {
+            bool shouldRoverExplore = true;
+
+            await Task.Run(() => 
+            {
+                while (MazeMap.Nodes.OfType<PathNode>().Count(pn => pn.Cost == 0) > 1 && shouldRoverExplore)
+                {
+                    List<INode> nextNodes = GetAdjacentNodes(rover.CurrentNode).Where(n => n.Id != rover.PreviousNode?.Id).ToList();
+
+                    if (nextNodes.Count == 1)
+                    {
+                        lock (lockObject)
+                        {
+                            shouldRoverExplore = rover.TryGoToNextNode(nextNodes.First());
+                        }
+                    }
+                    else
+                    {
+                        int numberOfruns = 0;
+
+                        foreach (INode nextNode in nextNodes)
+                        {
+                            numberOfruns++;
+                            INode currentNode = rover.CurrentNode;
+
+                            if (numberOfruns < nextNodes.Count)
+                            {
+                                IRover newRover = new Rover { Name = rover.Name + "|" + numberOfruns };
+                                newRover.BookRoverToLocation(currentNode);
+                                MakeRoverExploreAsync(newRover);
+                            }
+                            else
+                            {
+                                shouldRoverExplore = rover.TryGoToNextNode(nextNode);
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 }

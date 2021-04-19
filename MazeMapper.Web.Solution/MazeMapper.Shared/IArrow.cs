@@ -23,5 +23,11 @@ namespace MazeMapper.Shared
         /// </summary>
         INode Vertex2 { get; set; }
 
+        /// <summary>
+        /// Returns the opposite vertex to this arrow.
+        /// </summary>
+        /// <param name="vertex"></param>
+        /// <returns></returns>
+        INode GetOppositeNode(INode vertex);
     }
 }
