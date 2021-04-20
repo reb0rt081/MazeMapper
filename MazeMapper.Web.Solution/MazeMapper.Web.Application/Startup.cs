@@ -49,11 +49,16 @@ namespace MazeMapper.Web.Application
             }
 
             app.UseHttpsRedirection();
+
+            //  Serve files inside of web root (wwwroot folder)
             app.UseStaticFiles();
+
+            // Serve static file like image, css, js in asset folder of angular app
             app.UseSpaStaticFiles();
 
             app.UseRouting();
 
+            //  Controllers and APIs go here to allow routing and expose the interfaces
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -61,8 +66,10 @@ namespace MazeMapper.Web.Application
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            //  Front-end web UI 
             app.UseSpa(spa =>
             {
+                //  The SourcePath
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
