@@ -13,9 +13,9 @@ export class MazeMap extends Component {
   }
 
     static showResult(mazeInput) {
-        const numbers = mazeInput.split("\n");
-        const listItems = numbers.map((number) =>
-            <p>{number}</p>
+        const rows = mazeInput.split("\n");
+        const listItems = rows.map((row) =>
+            <p>{row}</p>
     );
     return (
     <div>{listItems}</div>
