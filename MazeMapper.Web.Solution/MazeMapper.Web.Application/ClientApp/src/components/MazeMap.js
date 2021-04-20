@@ -12,9 +12,13 @@ export class MazeMap extends Component {
     this.populateMazeData();
   }
 
-  static showResult(mazeInput) {
+    static showResult(mazeInput) {
+        const numbers = mazeInput.split("\n");
+        const listItems = numbers.map((number) =>
+            <p>{number}</p>
+    );
     return (
-        <p>{mazeInput}</p>
+    <div>{listItems}</div>
     );
   }
 
