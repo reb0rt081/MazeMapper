@@ -29,8 +29,8 @@ export class MazeMap extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >Maze solver</h1>
+        <p>This component demonstrates how to solve maze problems.</p>
         {contents}
       </div>
     );

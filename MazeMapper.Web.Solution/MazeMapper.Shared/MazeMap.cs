@@ -29,11 +29,11 @@ namespace MazeMapper.Shared
                 {
                     if(maxLength == 2 && MazeMatrix[i][j].Cost <= 9)
                     {
-                        result += "|0" + MazeMatrix[i][j] + "|";
+                        result += "[0" + MazeMatrix[i][j] + "]";
                     }
                     else
                     {
-                        result += "|" + MazeMatrix[i][j] + "|";
+                        result += "[" + MazeMatrix[i][j] + "]";
                     }
                     
                 }
