@@ -40,5 +40,18 @@ export class MazeMap extends Component {
     const response = await fetch('mazemapper');
       const data = await response.text();
     this.setState({ maze: data, loading: false });
-  }
+    }
+
+//fetch('https://mywebsite.com/endpoint/', {
+//    method: 'POST',
+//    headers: {
+//        'Accept': 'application/json',
+//        'Content-Type': 'application/json',
+//    },
+//    body: JSON.stringify({
+//        firstParam: 'yourValue',
+//        secondParam: 'yourOtherValue',
+//    })
+//})
+
 }
