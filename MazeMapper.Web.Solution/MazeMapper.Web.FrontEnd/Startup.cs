@@ -1,6 +1,3 @@
-using MazeMapper.Core;
-using MazeMapper.Domain;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace MazeMapper.Web.Application
+namespace MazeMapper.Web.FrontEnd
 {
     public class Startup
     {
@@ -23,19 +20,11 @@ namespace MazeMapper.Web.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMazeMapManager, MazeMapManager>();
-
-            services.AddControllersWithViews();
-
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
-
-            services.AddCors();
-
-            string apiEndPoint = Configuration.GetValue<string>("ApiEndPoint");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,23 +41,20 @@ namespace MazeMapper.Web.Application
                 app.UseHsts();
             }
 
-            //  Serve files inside of web root (wwwroot folder)
             app.UseStaticFiles();
-
-            // Serve static file like image, css, js in asset folder of angular app
             app.UseSpaStaticFiles();
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true)); // allow any origin
-
-            //  Controllers and APIs go here to allow routing and expose the interfaces
-            app.UseEndpoints(endpoints =>
+            app.UseSpa(spa =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });            
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
         }
     }
 }

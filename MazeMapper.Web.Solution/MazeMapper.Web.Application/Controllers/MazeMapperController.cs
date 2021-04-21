@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MazeMapper.Core;
 using MazeMapper.Domain;
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

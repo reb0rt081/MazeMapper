@@ -42,7 +42,7 @@ export class MazeMap extends Component {
     async populateMazeData()
 {
     var url = process.env.REACT_APP_SERVER_ENDPOINT;
-      const response = await fetch(url);
+        const response = await fetch(url);
       const data = await response.text();
     this.setState({ maze: data, loading: false });
     }

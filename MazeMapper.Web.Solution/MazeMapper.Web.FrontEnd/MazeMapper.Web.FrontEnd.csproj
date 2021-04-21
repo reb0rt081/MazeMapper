@@ -11,50 +11,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\**" />
-    <EmbeddedResource Remove="ClientApp\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="WeatherForecast.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\.env" />
-    <None Remove="ClientApp\.gitignore" />
-    <None Remove="ClientApp\package-lock.json" />
-    <None Remove="ClientApp\package.json" />
-    <None Remove="ClientApp\public\favicon.ico" />
-    <None Remove="ClientApp\public\index.html" />
-    <None Remove="ClientApp\public\manifest.json" />
-    <None Remove="ClientApp\README.md" />
-    <None Remove="ClientApp\src\App.js" />
-    <None Remove="ClientApp\src\App.test.js" />
-    <None Remove="ClientApp\src\components\Counter.js" />
-    <None Remove="ClientApp\src\components\FetchData.js" />
-    <None Remove="ClientApp\src\components\Home.js" />
-    <None Remove="ClientApp\src\components\Layout.js" />
-    <None Remove="ClientApp\src\components\MazeMap.js" />
-    <None Remove="ClientApp\src\components\NavMenu.css" />
-    <None Remove="ClientApp\src\components\NavMenu.js" />
-    <None Remove="ClientApp\src\custom.css" />
-    <None Remove="ClientApp\src\index.js" />
-    <None Remove="ClientApp\src\registerServiceWorker.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MazeMapper.Core\MazeMapper.Core.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
