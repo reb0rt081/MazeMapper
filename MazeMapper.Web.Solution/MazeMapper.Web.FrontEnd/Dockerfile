@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["MazeMapper.Web.Solution/MazeMapper.Web.FrondEnd/MazeMapper.Web.FrontEnd.csproj", "MazeMapper.Web.Solution/MazeMapper.Web.FrontEnd/"]
+COPY ["MazeMapper.Web.Solution/MazeMapper.Web.FrontEnd/MazeMapper.Web.FrontEnd.csproj", "MazeMapper.Web.Solution/MazeMapper.Web.FrontEnd/"]
 RUN dotnet restore "MazeMapper.Web.Solution/MazeMapper.Web.FrontEnd/MazeMapper.Web.FrontEnd.csproj"
 COPY . .
 WORKDIR "/src/MazeMapper.Web.Solution/MazeMapper.Web.FrontEnd"
