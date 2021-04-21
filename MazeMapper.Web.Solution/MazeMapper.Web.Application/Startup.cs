@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+
 using MazeMapper.Core;
 using MazeMapper.Domain;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
@@ -53,6 +56,13 @@ namespace MazeMapper.Web.Application
                 app.UseHsts();
             }
 
+            //Specify the MyCustomPage1.html as the default page
+            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear();
+            defaultFilesOptions.DefaultFileNames.Add("home.html");
+            //Setting the Default Files
+            app.UseDefaultFiles(defaultFilesOptions);
+
             //  Serve files inside of web root (wwwroot folder)
             app.UseStaticFiles();
 
@@ -70,7 +80,14 @@ namespace MazeMapper.Web.Application
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-            });            
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World");
+            });
+
+
         }
     }
 }
