@@ -32,6 +32,8 @@ namespace MazeMapper.Web.Application
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            string apiEndPoint = Configuration.GetValue<string>("ApiEndPoint");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

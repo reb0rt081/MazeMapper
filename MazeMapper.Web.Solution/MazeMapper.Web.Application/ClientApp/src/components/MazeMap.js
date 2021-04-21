@@ -8,8 +8,9 @@ export class MazeMap extends Component {
     this.state = { maze: "", loading: true };
   }
 
-  componentDidMount() {
-    this.populateMazeData();
+    componentDidMount() {
+        
+      this.populateMazeData();
   }
 
     static showResult(mazeInput) {
@@ -36,8 +37,10 @@ export class MazeMap extends Component {
     );
   }
 
-  async populateMazeData() {
-    const response = await fetch('mazemapper');
+    async populateMazeData()
+{
+    var url = process.env.REACT_APP_SERVER_ENDPOINT;
+      const response = await fetch(url);
       const data = await response.text();
     this.setState({ maze: data, loading: false });
     }
