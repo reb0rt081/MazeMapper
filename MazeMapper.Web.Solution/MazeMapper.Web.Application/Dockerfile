@@ -1,17 +1,22 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# syntax=docker/dockerfile:1
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["MazeMapper.Web.Application/MazeMapper.Web.Application.csproj", "MazeMapper.Web.Application/"]
 RUN dotnet restore "MazeMapper.Web.Application/MazeMapper.Web.Application.csproj"
 COPY . .
-WORKDIR "/src/MazeMapper.Web.Application"
+WORKDIR "/src/testcore"
 RUN dotnet build "MazeMapper.Web.Application.csproj" -c Release -o /app/build
+
+FROM build AS publish
 RUN dotnet publish "MazeMapper.Web.Application.csproj" -c Release -o /app/publish
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:3.1
+FROM base AS final
 WORKDIR /app
-COPY --from=build-env /app/publish .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MazeMapper.Web.Application.exe"]
