@@ -27,7 +27,7 @@ export class Home extends Component {
         <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If a command prompt gets open in that directory, <code>npm</code> commands can be run such as <code>npm test</code> or <code>npm install</code>.</p>
         <h2>Instructions in order to use this app</h2>
         <p>Navigate to the <strong>Maze Map</strong> view and the result will be displayed.</p>
-        <p><NavLink tag={Link} className="text-dark" to="/maze-map">Click here to visit the Maze map view</NavLink></p>
+        <p><NavLink tag={Link} className="text-dark" to="/maze-map">Click <strong>here</strong> to visit the Maze map view</NavLink></p>
         </div>
     );
   }
