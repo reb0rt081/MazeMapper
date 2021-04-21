@@ -29,6 +29,8 @@ namespace MazeMapper.Core
                 throw new Exception("Maze map input string must have the same number of chars per line!");
             }
 
+            MazeMap = new MazeMap();
+
             // Setting maze matrix number of rows
             MazeMap.MazeMatrix = new INode[mazeRows.Count()][];
 

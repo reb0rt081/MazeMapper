@@ -37,6 +37,8 @@ export class MazeMap extends Component {
     );
   }
 
+//  process.env.REACT_APP_SERVER_ENDPOINT allows you to access global environmental variables
+
     async populateMazeData()
 {
     var url = process.env.REACT_APP_SERVER_ENDPOINT;
