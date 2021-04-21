@@ -33,6 +33,7 @@ namespace MazeMapper.Web.Application
                 configuration.RootPath = "ClientApp/build";
             });
 
+            //  We need this in order to allow apps to connect with no cors
             services.AddCors();
 
             string apiEndPoint = Configuration.GetValue<string>("ApiEndPoint");
@@ -60,6 +61,7 @@ namespace MazeMapper.Web.Application
 
             app.UseRouting();
 
+            //  We need this in order to allow apps to connect with no cors
             app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true)); // allow any origin
 
             //  Controllers and APIs go here to allow routing and expose the interfaces
