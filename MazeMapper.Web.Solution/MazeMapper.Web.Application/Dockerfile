@@ -2,7 +2,7 @@
 
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
-WORKDIR /app
+WORKDIR /app/MazeMapper.Web.Solution/MazeMapper.Web.Application
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
