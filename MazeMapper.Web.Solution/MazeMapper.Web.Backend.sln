@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Web.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Core", "MazeMapper.Core\MazeMapper.Core.csproj", "{819CCDDA-876C-47F3-96EA-9DAE7CA11581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMapper.Shared", "MazeMapper.Shared\MazeMapper.Shared.csproj", "{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Shared", "MazeMapper.Shared\MazeMapper.Shared.csproj", "{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMapper.Domain", "MazeMapper.Domain\MazeMapper.Domain.csproj", "{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Domain", "MazeMapper.Domain\MazeMapper.Domain.csproj", "{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test.U", "Test.U", "{2552B426-543B-469C-B20B-C8F9D5A16D93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMapper.Core.Test", "Test.U\MazeMapper.Core.Test\MazeMapper.Core.Test.csproj", "{DEC42856-2B96-4867-A387-271181E27C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Core.Test", "Test.U\MazeMapper.Core.Test\MazeMapper.Core.Test.csproj", "{DEC42856-2B96-4867-A387-271181E27C05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
