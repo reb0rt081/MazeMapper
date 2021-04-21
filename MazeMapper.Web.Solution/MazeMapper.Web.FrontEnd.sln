@@ -3,17 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Core", "MazeMapper.Core\MazeMapper.Core.csproj", "{819CCDDA-876C-47F3-96EA-9DAE7CA11581}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Shared", "MazeMapper.Shared\MazeMapper.Shared.csproj", "{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Domain", "MazeMapper.Domain\MazeMapper.Domain.csproj", "{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test.U", "Test.U", "{2552B426-543B-469C-B20B-C8F9D5A16D93}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Core.Test", "Test.U\MazeMapper.Core.Test\MazeMapper.Core.Test.csproj", "{DEC42856-2B96-4867-A387-271181E27C05}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMapper.Web.FrontEnd", "MazeMapper.Web.FrontEnd\MazeMapper.Web.FrontEnd.csproj", "{0D485CAB-7D51-4F5F-9EB3-E0631A956AC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeMapper.Web.FrontEnd", "MazeMapper.Web.FrontEnd\MazeMapper.Web.FrontEnd.csproj", "{0D485CAB-7D51-4F5F-9EB3-E0631A956AC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,22 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{819CCDDA-876C-47F3-96EA-9DAE7CA11581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{819CCDDA-876C-47F3-96EA-9DAE7CA11581}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{819CCDDA-876C-47F3-96EA-9DAE7CA11581}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{819CCDDA-876C-47F3-96EA-9DAE7CA11581}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5DA78F2-C1BB-49CD-9E61-AA403C68A4B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FDA6B3F-3D83-4789-9200-94D47FA90FD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEC42856-2B96-4867-A387-271181E27C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEC42856-2B96-4867-A387-271181E27C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEC42856-2B96-4867-A387-271181E27C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEC42856-2B96-4867-A387-271181E27C05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D485CAB-7D51-4F5F-9EB3-E0631A956AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D485CAB-7D51-4F5F-9EB3-E0631A956AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D485CAB-7D51-4F5F-9EB3-E0631A956AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,9 +18,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DEC42856-2B96-4867-A387-271181E27C05} = {2552B426-543B-469C-B20B-C8F9D5A16D93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C0C6A3B5-3718-4EEC-880A-B074A65FAB6A}
