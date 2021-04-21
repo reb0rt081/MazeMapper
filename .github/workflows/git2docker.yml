@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./MazeMapper.Web.Solution/Dockerfile
+          file: ./MazeMapper.Web.Solution/MazeMapper.Web.Application/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/mazemapper:latest
 
