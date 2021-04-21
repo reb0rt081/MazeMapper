@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy everything at this level and restore as distinct layers
 COPY ./ /app
 
-RUN dotnet restore
+RUN dotnet restore "MazeMapper.Web.Application.csproj"
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
