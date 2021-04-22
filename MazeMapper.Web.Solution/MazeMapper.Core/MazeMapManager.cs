@@ -114,7 +114,7 @@ namespace MazeMapper.Core
         {
             List<INode> adjacentNodes = new List<INode>();
 
-            List<IArrow> connectedArrows = MazeMap.Arrows.Where(a => a.Vertex1 == node || a.Vertex2 == node).ToList();
+            List<IArrow> connectedArrows = MazeMap.Arrows.Where(a => a.Vertex1 == node).ToList();
 
             connectedArrows.ForEach(a => adjacentNodes.Add(a.GetOppositeNode(node)));
 
