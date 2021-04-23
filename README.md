@@ -22,3 +22,6 @@ In order to make the Github Workflow .yml work:
 1) Edit .YML file (pointing to right DockerFile)
 2) Edit DockerFile (pointing to right files)
 3) Target .csproj needs to disable PublishRunWebpack target as it could run npm install in an environment without it installed
+
+DevExpress examples to use:
+https://js.devexpress.com/Demos/Widgetsgallery/Demo/Diagram/Overview/Mvc/Light/
