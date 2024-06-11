@@ -25,6 +25,8 @@ namespace MazeMapper.Core
         {
             string[] mazeRows = mazeMapText.Split(Environment.NewLine);
 
+            mazeRows = mazeRows.Where(m => !string.IsNullOrEmpty(m)).ToArray();
+
             if (mazeRows.Select(m => m.Length).Distinct().Count() > 1)
             {
                 throw new Exception("Maze map input string must have the same number of chars per line!");
