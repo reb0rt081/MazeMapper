@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using MazeMapper.Domain;
@@ -107,7 +108,62 @@ namespace MazeMapper.Core
             rover.BookRoverToLocation(mazeStartLine);
 
             //  Start exploring
+
+            //  Task.Run
+            //  Advantages:
+            //  1. Simple to use
+            //  2. Suitable for offloading CPU-bound work from the main thread
+            // Disadvantages:
+            //  1. Not suitable for I/O-bound operations
+            //  2. If overused, it can lead to excessive thread creation and context switching, which can degrade performance
             await MakeRoverExploreAsync(rover);
+        }
+
+        public async Task SolveMazeFactoryAsync()
+        {
+            INode mazeStartLine = MazeMap.Nodes.Single(n => n is SourceNode);
+
+            //  Initialize original rover and start exploring the maze
+            Rover rover = new Rover { Name = "OriginalRover" };
+
+            //  Book the rover to the source node (the start line)
+            rover.BookRoverToLocation(mazeStartLine);
+
+            //  Task.Factory.StartNew
+            //  Advantages:
+            //  1. More flexible than Task.Run as it allows setting task creation options
+            // Disadvantages:
+            //  1. More complex and often unnecessary for common use cases where Task.Run suffices
+            await Task.Factory.StartNew(async () => await MakeRoverExploreAsync(rover), TaskCreationOptions.AttachedToParent);
+        }
+
+        public void SolveMaze()
+        {
+            INode mazeStartLine = MazeMap.Nodes.Single(n => n is SourceNode);
+
+            //  Initialize original rover and start exploring the maze
+            Rover rover = new Rover { Name = "OriginalRover" };
+
+            //  Book the rover to the source node (the start line)
+            rover.BookRoverToLocation(mazeStartLine);
+
+            //  ThreadPool
+            //  Advantages:
+            //  1. Directly interacts with the thread pool.
+            //  2. Can be more efficient.
+            // Disadvantages:
+            //  1. Less control over the task lifecycle
+            //  2. More manual handling of state and context
+            ManualResetEvent doneEvent = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(state => MakeRoverExploreAsync(rover).ContinueWith(task => 
+                { 
+                    if(task.IsCompleted && !task.IsFaulted)
+                    {
+                        doneEvent.Set();
+                    }
+                }).Wait());
+
+            doneEvent.WaitOne();
         }
 
         public List<INode> GetAdjacentNodes(INode node)

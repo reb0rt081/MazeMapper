@@ -61,13 +61,55 @@ namespace TestU.MazeMapper.Core.Test
         /// 000000
         /// </summary>
         [TestMethod]
-        public async Task BuildAndSolveSimpleMaze()
+        public async Task BuildAndSolveSimpleMazeAsync()
         {
             string mazeMapString = $"000000{Environment.NewLine}*11110{Environment.NewLine}000000";
 
             mazeMapManager.BuildMazeMapFromString(mazeMapString);
 
             await mazeMapManager.SolveMazeAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 4));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 5);
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 000000
+        /// *11110
+        /// 000000
+        /// </summary>
+        [TestMethod]
+        public async Task BuildAndSolveSimpleMazeFactory()
+        {
+            string mazeMapString = $"000000{Environment.NewLine}*11110{Environment.NewLine}000000";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            await mazeMapManager.SolveMazeFactoryAsync();
+
+            Console.WriteLine(mazeMapManager.MazeMap.ToString());
+
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 4));
+            Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 5);
+        }
+
+        /// <summary>
+        /// Input maze:
+        /// 000000
+        /// *11110
+        /// 000000
+        /// </summary>
+        [TestMethod]
+        public void BuildAndSolveSimpleMaze()
+        {
+            string mazeMapString = $"000000{Environment.NewLine}*11110{Environment.NewLine}000000";
+
+            mazeMapManager.BuildMazeMapFromString(mazeMapString);
+
+            mazeMapManager.SolveMaze();
 
             Console.WriteLine(mazeMapManager.MazeMap.ToString());
 
