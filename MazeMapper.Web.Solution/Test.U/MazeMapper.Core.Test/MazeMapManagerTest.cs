@@ -334,8 +334,8 @@ namespace TestU.MazeMapper.Core.Test
         [TestMethod]
         public void SumValues()
         {
-            int result = Utilities.ParallelSum(1, 10);
-            Assert.AreEqual(55, result);
+            int result = Utilities.ParallelSum(1, 100);
+            Assert.AreEqual(5050, result);
         }
     }
 }
