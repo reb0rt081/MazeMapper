@@ -330,5 +330,12 @@ namespace TestU.MazeMapper.Core.Test
             Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Any(c => c == 23));
             Assert.IsTrue(mazeMapManager.MazeMap.Nodes.Select(n => n.Cost).Max() < 24);
         }
+
+        [TestMethod]
+        public void SumValues()
+        {
+            int result = Utilities.ParallelSum(1, 10);
+            Assert.AreEqual(55, result);
+        }
     }
 }
