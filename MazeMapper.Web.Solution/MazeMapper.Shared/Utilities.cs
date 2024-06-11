@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace MazeMapper.Shared
 {
@@ -23,6 +24,36 @@ namespace MazeMapper.Shared
                 });
 
             return totalSum;
+        }
+
+        public static string MaskString(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            return input.Replace('a', '*')
+                .Replace('e', '*')
+                .Replace('i', '*')
+                .Replace('o', '*')
+                .Replace('u', '*')
+                .Replace('A', '*')
+                .Replace('E', '*')
+                .Replace('I', '*')
+                .Replace('O', '*')
+                .Replace('U', '*');
+        }
+
+        public static string MaskStringWithRegex(string input)
+        {
+            // Define the regular expression pattern for vowels
+            string pattern = "[aeiouAEIOU]";
+
+            // Use Regex.Replace to replace all vowels with '*'
+            string result = Regex.Replace(input, pattern, "*");
+
+            return result;
         }
     }
 }

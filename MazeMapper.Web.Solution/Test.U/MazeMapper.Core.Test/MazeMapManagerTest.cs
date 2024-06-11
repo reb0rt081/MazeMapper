@@ -337,5 +337,15 @@ namespace TestU.MazeMapper.Core.Test
             int result = Utilities.ParallelSum(1, 100);
             Assert.AreEqual(5050, result);
         }
+
+        [TestMethod]
+        public void MaskString()
+        {
+            string solution = "**r*l** R*b*s M*ng**z";
+            string result = Utilities.MaskString("Aurelio Ribes Minguez");
+            Assert.AreEqual(solution, result);
+            result = Utilities.MaskStringWithRegex("Aurelio Ribes Minguez");
+            Assert.AreEqual(solution, result);
+        }
     }
 }
