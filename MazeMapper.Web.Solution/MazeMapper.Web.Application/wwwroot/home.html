@@ -1,4 +1,63 @@
-      <div>
-        <h1>Hello, world!</h1>
-          <p>Welcome to the API to access the MazeMapManager: add the text <strong>/mazemapper</strong> to this URL address to access the API.</p>
-      </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumador</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition-duration: 0.4s;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h1>Hello, world!</h1>
+    <p>Welcome to the API to access the MazeMapManager: add the text <strong>/mazemapper</strong> to this URL address to access the API.</p>
+    <button id="botonSumar">Sumar 1</button>
+    <div id="resultado">El resultado es: 0</div>
+</div>
+    
+<script>// Función para sumar 1 al resultado actual
+  function sumar() {
+    // Obtener el elemento donde se mostrará el resultado
+    var resultadoElemento = document.getElementById("resultado");
+    // Obtener el valor actual del resultado
+    var resultadoActual = parseInt(resultadoElemento.textContent.split(":")[1].trim());
+    // Sumar 1 al resultado
+    var nuevoResultado = resultadoActual + 1;
+    // Mostrar el nuevo resultado en el elemento
+    resultadoElemento.textContent = "El resultado es: " + nuevoResultado;
+  }
+
+  // Obtener el botón y agregar un event listener para el evento "click", alternativamente puedes hacerlo en el mismo elemento button:
+  // <button id="botonSumar" onclick="sumar()">Sumar 1</button>
+  document.getElementById("botonSumar").addEventListener("click", sumar);</script>
+
+</body>
+</html>
+
